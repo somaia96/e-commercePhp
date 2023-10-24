@@ -1,0 +1,19 @@
+
+//contact table with another one
+
+ALTER TABLE items // the table should be empty first
+ADD CONSTRAINT member_1
+FOREIGN KEY(Member_ID)
+REFERENCES users(UserID)
+ON UPDATE CASCADE
+ON DELETE CASCADE
+
+
+//add column of table to another table which conect with it
+
+$stmt =$con->prepare("SELECT items.* , categories.Name AS category_name ,users.Username FROM items
+        INNER JOIN categories ON categories.ID = items.Cat_ID
+        INNER JOIN users ON users.UserID = items.Member_ID");
+        $stmt->execute();
+
+        $items = $stmt->fetchAll();
